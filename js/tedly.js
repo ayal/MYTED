@@ -100,6 +100,7 @@ TEDLY = {
 
 TEDLY.init(function() {
     var context = {};
+    context.title = 'Most Popular';
     context.pop = TEDLY.sorty('views');//.splice(0,TEDLY.vids.length-1);
     // context.date = TEDLY.sorty('date');
     // context.duration = TEDLY.sorty('duration');
@@ -121,6 +122,7 @@ TEDLY.init(function() {
     $('body').on('click','.catlink',function() {
         var cat = $(this).attr('cat');
         $('.isowrap').empty();
+        context.title = cat;
         context.pop =  TEDLY.sorty('views', TEDLY.catfilter(cat, TEDLY.vids));
         var source = $("#pop-template").html();
         var template = Handlebars.compile(source);
