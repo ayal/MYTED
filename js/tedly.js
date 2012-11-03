@@ -1,28 +1,4 @@
-String.prototype.toHHMMSS = function() {
-    sec_numb = parseInt(this);
-    var hours = Math.floor(sec_numb / 3600);
-    var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
-    var seconds = sec_numb - (hours * 3600) - (minutes * 60);
-
-    if(hours < 10) {
-        hours = "0" + hours;
-    }
-    if(minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    if(seconds < 10) {
-        seconds = "0" + seconds;
-    }
-    var time = hours + ':' + minutes + ':' + seconds;
-    return time;
-};
-utils = {
-    numberWithCommas: function(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-};
-
-TEDLY = {
+$.extend(TEDLY, {
     self: this,
     vids: [],
     init: function(cb) {
@@ -47,7 +23,7 @@ TEDLY = {
                             id: vidbox.id.$t.substring(vidbox.id.$t.length - 11),
                             title: vidbox.title.$t,
                             views: parseInt(vidbox.yt$statistics.viewCount, 10),
-                            strviews: utils.numberWithCommas(parseInt(vidbox.yt$statistics.viewCount, 10)),
+                            strviews: numberWithCommas(parseInt(vidbox.yt$statistics.viewCount, 10)),
                             published: vidbox.published.$t,
                             date: new Date(vidbox.published.$t).getTime(),
                             category: vidbox.media$group.media$category[0].label,
@@ -105,7 +81,7 @@ TEDLY = {
         });
         return TEDLY.categories;
     }
-};
+});
 
 TEDLY.initdef = $.Deferred().done(function() {
 

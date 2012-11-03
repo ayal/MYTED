@@ -1,3 +1,3 @@
 tedtrack("hit", ["hey!"]);
 
-$('body').append($('<div />').text(JSON.stringify(MYTED.context)));
+$('body').append($('<div />').text(JSON.stringify(TEDLY.context)));
