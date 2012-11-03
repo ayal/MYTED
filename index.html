@@ -12,10 +12,10 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<script>
-	  window.MYTED = window.MYTED || {};
-	  MYTED.context = {{context}};
-	  MYTED.user = function(){return JSON.parse(MYTED.context.fb);};
-	  console.log(MYTED.context)
+	  window.TEDLY = window.TEDLY || {};
+	  TEDLY.context = {{context}};
+	  TEDLY.user = function(){return JSON.parse(TEDLY.context.fb);};
+	  console.log(TEDLY.context)
 	</script>
 
         <link rel="stylesheet" href="/css/normalize.css">
@@ -104,7 +104,6 @@
          {% templatetag openvariable %}/each{% templatetag closevariable %}
     </script>
     </div> 
- <script src="js/tedly.js"></script>
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -121,5 +120,6 @@
         </script>
 	<script src="/js/utils.js"></script>
         <script src="/js/main.js"></script>
+	<script src="js/tedly.js"></script>
     </body>
 </html>
