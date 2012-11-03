@@ -12,7 +12,7 @@ window.getParameterByName = function(name) {
 };
 
 window.tedtrack = function(what, more){
-    var pre = [TEDLY.user().id || 'ANON', searchSession, (new Date()).getTime(), getParameterByName("ref")];
+    var pre = [TEDLY.user().id || 'ANON', searchSession, (new Date()).getTime(), getParameterByName("ref") || "NOREF"];
     var all = $.merge(pre, more);
     var arr = ["_trackEvent", "all", what, all.join('|'), 1];
     _gaq.push(arr);
