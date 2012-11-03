@@ -5,7 +5,7 @@ window.getParameterByName = function(name) {
   var regexS = "[\\?&]" + name + "=([^&#]*)";
   var regex = new RegExp(regexS);
   var results = regex.exec(window.location.search);
-  if(results == null)
+  if(results === null)
     return "";
   else
     return decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -18,7 +18,6 @@ window.tedtrack = function(what, more){
     _gaq.push(arr);
     console.log.apply(console, arr);
 };
-
 String.prototype.toHHMMSS = function() {
     sec_numb = parseInt(this);
     var hours = Math.floor(sec_numb / 3600);
@@ -37,6 +36,6 @@ String.prototype.toHHMMSS = function() {
     var time = hours + ':' + minutes + ':' + seconds;
     return time;
 };
-numberWithCommas: function(x) {
+numberWithCommas = function(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    };
