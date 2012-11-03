@@ -1,0 +1,7 @@
+window.searchSession = 0;
+
+window.tedtrack = function(what, more){
+    var pre = [sid, searchSession, (new Date()).getTime()];
+    var all = $.merge(pre, more);
+    _trackEvent("all", what, all.join('|'), 1);    
+};

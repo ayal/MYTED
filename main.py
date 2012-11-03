@@ -36,22 +36,31 @@ class BaseHandler(webapp.RequestHandler):
 def create_fb_login_url(redirect_uri):
 	return 'http://www.facebook.com/dialog/oauth/?' + urllib.urlencode({'client_id': dev.FACEBOOK_APP_ID, 'redirect_uri': redirect_uri, 'scope': dev.SCOPE})
 
+def getpostit(self):
+	self.response.headers['P3P'] = 'CP="OUR PSA CAO"'
+	
+	if not self.session["fb"].has_key("id"):
+		self.redirect('/auth')
+		return
+	
+	facebookext = 'facebookexternalhit' in self.request.headers['User-Agent']
+	
+	context = {'appid': dev.FACEBOOK_APP_ID,
+		   'fbns' : dev.FACEBOOK_NAMESPACE,
+		   'fburl': dev.FACEBOOK_APP_URL,
+		   'sid': self.session["sid"],
+		   'scope': dev.SCOPE,
+		   'fb': simplejson.dumps(self.session["fb"]),
+		   'server': dev.SERVER}
+	
+	path = os.path.join(os.path.dirname(__file__), 'index.html')
+	self.response.out.write(template.render(path, {'context': simplejson.dumps(context)}))
 
 class Main(BaseHandler):
             def get(self):
-                self.response.headers['P3P'] = 'CP="OUR PSA CAO"'
-                facebookext = 'facebookexternalhit' in self.request.headers['User-Agent']
-        
-		context = {'appid': dev.FACEBOOK_APP_ID,
-                           'fbns' : dev.FACEBOOK_NAMESPACE,
-			   'fburl': dev.FACEBOOK_APP_URL,
-			   'sid': self.session["sid"],
-                           'scope': dev.SCOPE,
-                           'fb': simplejson.dumps(self.session["fb"]),
-                           'server': dev.SERVER}
-
-		path = os.path.join(os.path.dirname(__file__), 'index.html')
-		self.response.out.write(template.render(path, {'context': simplejson.dumps(context)}))
+		    getpostit(self)
+	    def post(self):
+		    getpostit(self)
 
 class Auth(BaseHandler):
 	def get(self):
@@ -79,11 +88,11 @@ class Auth(BaseHandler):
                         self.session["access_token"] = access_token
 
                         logging.debug('authed facebook user')
-                        self.redirect('/')
+                        self.redirect(dev.FACEBOOK_APP_URL)
 		else:
                         logging.debug('authing facebook user')
-                        loginUrl = create_fb_login_url(self.request.path_url)
-                        self.redirect(loginUrl)
+			loginUrl = create_fb_login_url(self.request.path_url)
+			self.response.out.write("<script>top.location.href = '" + loginUrl + "'</script>")
 
 application = webapp.WSGIApplication([('/auth', Auth),
                                       ('/.*', Main),]
