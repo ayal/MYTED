@@ -5,7 +5,7 @@ window.getParameterByName = function(name) {
   var regexS = "[\\?&]" + name + "=([^&#]*)";
   var regex = new RegExp(regexS);
   var results = regex.exec(window.location.search);
-  if(results == null)
+  if(results === null)
     return "";
   else
     return decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -18,3 +18,24 @@ window.tedtrack = function(what, more){
     _gaq.push(arr);
     console.log.apply(console, arr);
 };
+String.prototype.toHHMMSS = function() {
+    sec_numb = parseInt(this);
+    var hours = Math.floor(sec_numb / 3600);
+    var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+    var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+    if(hours < 10) {
+        hours = "0" + hours;
+    }
+    if(minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if(seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    var time = hours + ':' + minutes + ':' + seconds;
+    return time;
+};
+numberWithCommas = function(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };

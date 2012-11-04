@@ -1,8 +1,7 @@
 application: ted-me-up
-version: 3
+version: 2
 runtime: python
 api_version: 1
-threadsafe: no
 
 skip_files:
 - ^(.*/)?#.*#
@@ -36,6 +35,10 @@ handlers:
 - url: /css
   mime_type: text/css
   static_dir: css
+
+- url: /res
+  mime_type: application/json
+  static_dir: res
 
 - url: /js
   mime_type: text/javascript
