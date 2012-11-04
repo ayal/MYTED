@@ -37,6 +37,10 @@ handlers:
   mime_type: text/css
   static_dir: css
 
+- url: /res
+  mime_type: application/json
+  static_dir: res
+
 - url: /js
   mime_type: text/javascript
   static_dir: js
